@@ -41,9 +41,9 @@ def get_human_color(R, G, B):
         nama_dasar = "Merah"
     elif 15 <= hue_deg < 40:
         nama_dasar = "Oranye"
-    elif 40 <= hue_deg < 70:
+    elif 40 <= hue_deg < 65:
         nama_dasar = "Kuning"
-    elif 70 <= hue_deg < 170:
+    elif 65 <= hue_deg < 170:
         nama_dasar = "Hijau"
     elif 170 <= hue_deg < 190:
         nama_dasar = "Tosca"
@@ -97,3 +97,4 @@ def check_compatibility(top_rgb, bottom_rgb, nama_top, nama_bottom):
         return "🔥 SUPER MATCH!", f"Kombinasi {nama_top} dan {nama_bottom} harmonis banget!"
     else:
         return "❌ Kurang Pas", f"Waduh, {nama_top} ketemu {nama_bottom} agak nabrak nih."
+
