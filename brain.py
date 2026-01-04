@@ -29,11 +29,23 @@ def get_human_color(R, G, B):
     h, s, v = colorsys.rgb_to_hsv(R/255.0, G/255.0, B/255.0)
     hue_deg = h * 360 
 
-    # === TIER 1: ACHROMATIC (Gak ada warna) ===
-    if v < 0.18: return "Hitam" # Gelap banget
-    if v < 0.30 and s < 0.15: return "Charcoal / Abu Tua" # Abu gelap keren
-    if v > 0.78 and s < 0.10: return "Putih" # Putih bersih
-    if s < 0.15: return "Abu-abu" # Abu standar
+   # === TIER 1: ACHROMATIC (Gak ada warna) ===
+    
+    # 1. HITAM: Gelap banget (V turunin dikit biar Navy gak masuk)
+    if v < 0.15: return "Hitam" 
+
+    # 2. PUTIH (REVISI BESAR!) 🏳️
+    # Syarat Lama: v > 0.78 (Harus terang banget) -> SUSAH
+    # Syarat Baru: v > 0.65 (Terang dikit boleh) DAN s < 0.15 (Pudar)
+    # ATAU: v > 0.90 (Sangat terang) biarpun saturasinya agak naik dikit (efek lampu kuning)
+    if (v > 0.65 and s < 0.12) or (v > 0.85 and s < 0.20): 
+        return "Putih" 
+
+    # 3. ABU-ABU TUA / CHARCOAL
+    if v < 0.35 and s < 0.20: return "Charcoal / Abu Tua" 
+
+    # 4. ABU-ABU BIASA (Sisa sampah pudar masuk sini)
+    if s < 0.20: return "Abu-abu"
 
     # === TIER 2: WARNA SPESIFIK (Detektif Mode On) ===
     
@@ -124,3 +136,4 @@ def check_compatibility(top_rgb, bottom_rgb, nama_top, nama_bottom):
         return "🔥 SUPER MATCH!", f"Kombinasi {nama_top} + {nama_bottom} terlihat harmonis!"
     else:
         return "⚠️ Kurang Masuk", f"Hmm, tone warnanya agak kurang nyatu. Coba salah satu diganti netral."
+
